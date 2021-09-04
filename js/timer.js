@@ -6,10 +6,19 @@ export default class CountdownTimer {
       minsRef: document.querySelector(`${selector} [data-value="mins"]`),
       secsRef: document.querySelector(`${selector} [data-value="secs"]`),
     };
-    this.targetTime = targetDate.getTime();
 
-    setInterval(() => {
-      this.updateTimerface(this.getTimeComponents(this.targetTime - Date.now()));
+    this.intervalId = setInterval(() => {
+      const deltaTime = targetDate.getTime() - Date.now();
+
+      if (deltaTime <= 0) {
+        clearInterval(this.intervalId);
+        console.log(
+          `Error: Target date must be in the future. Please enter valid target date.`,
+        );
+        return;
+      }
+
+      this.updateTimerface(this.getTimeComponents(deltaTime));
     }, 1000);
   }
 
