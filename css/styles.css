@@ -1,0 +1,40 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+.title {
+  text-align: center;
+  color: #212121;
+}
+
+.timer {
+  display: flex;
+  justify-content: center;
+}
+
+.field {
+  min-width: 170px;
+  margin: 10px;
+}
+
+.value {
+  display: block;
+  padding: 15px;
+  font-size: 36px;
+  font-weight: 700;
+  text-align: center;
+  color: #ffffff;
+  background-color: #188ce8;
+  border-radius: 10px;
+}
+
+.label {
+  display: block;
+  margin: 15px;
+  font-weight: 700;
+  text-align: center;
+  text-transform: uppercase;
+  color: #757575;
+}
