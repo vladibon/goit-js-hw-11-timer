@@ -1,3 +1,5 @@
+import messages from './messages.js';
+
 export default class CountdownTimer {
   constructor({ selector, targetDate }) {
     this.refs = {
@@ -12,7 +14,7 @@ export default class CountdownTimer {
 
   startup(targetTime) {
     if (targetTime - Date.now() <= 0) {
-      title.textContent = `Error: Target date must be in the future. Please enter valid target date.`;
+      title.textContent = messages.error;
       return;
     }
 
@@ -23,7 +25,7 @@ export default class CountdownTimer {
 
       if (deltaTime < 1000) {
         clearInterval(intervalId);
-        title.textContent = `Our JS team project has started`;
+        title.textContent = messages.end;
       }
     }, 1000);
   }
