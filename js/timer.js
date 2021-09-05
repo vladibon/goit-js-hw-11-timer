@@ -16,8 +16,15 @@ export default class CountdownTimer {
       return;
     }
 
-    setInterval(() => {
-      this.updateTimerInterface(this.getTimeComponents(targetTime - Date.now()));
+    const intervalId = setInterval(() => {
+      const deltaTime = targetTime - Date.now();
+
+      this.updateTimerInterface(this.getTimeComponents(deltaTime));
+
+      if (deltaTime < 1000) {
+        clearInterval(intervalId);
+        title.textContent = `Our JS team project has started`;
+      }
     }, 1000);
   }
 
