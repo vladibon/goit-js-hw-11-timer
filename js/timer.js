@@ -7,22 +7,21 @@ export default class CountdownTimer {
       secsRef: document.querySelector(`${selector} [data-value="secs"]`),
     };
 
-    this.intervalId = setInterval(() => {
-      const deltaTime = targetDate.getTime() - Date.now();
+    this.startup(targetDate.getTime());
+  }
 
-      if (deltaTime <= 0) {
-        clearInterval(this.intervalId);
-        console.log(
-          `Error: Target date must be in the future. Please enter valid target date.`,
-        );
-        return;
-      }
+  startup(targetTime) {
+    if (targetTime - Date.now() <= 0) {
+      title.textContent = `Error: Target date must be in the future. Please enter valid target date.`;
+      return;
+    }
 
-      this.updateTimerface(this.getTimeComponents(deltaTime));
+    setInterval(() => {
+      this.updateTimerInterface(this.getTimeComponents(targetTime - Date.now()));
     }, 1000);
   }
 
-  updateTimerface({ days, hours, mins, secs }) {
+  updateTimerInterface({ days, hours, mins, secs }) {
     const { daysRef, hoursRef, minsRef, secsRef } = this.refs;
 
     daysRef.textContent = days;
@@ -32,13 +31,11 @@ export default class CountdownTimer {
   }
 
   getTimeComponents(time) {
-    const { pad } = this;
-
     return {
-      days: pad(Math.floor(time / (1000 * 60 * 60 * 24))),
-      hours: pad(Math.floor((time % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))),
-      mins: pad(Math.floor((time % (1000 * 60 * 60)) / (1000 * 60))),
-      secs: pad(Math.floor((time % (1000 * 60)) / 1000)),
+      days: this.pad(Math.floor(time / (1000 * 60 * 60 * 24))),
+      hours: this.pad(Math.floor((time % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))),
+      mins: this.pad(Math.floor((time % (1000 * 60 * 60)) / (1000 * 60))),
+      secs: this.pad(Math.floor((time % (1000 * 60)) / 1000)),
     };
   }
 
